@@ -46,9 +46,9 @@ class Stringifier extends NodeVisitor<Node, string> {
    * @return The stringified CSS of the At Rule.
    */
   [nodeType.atRule](atRule: AtRule) {
-    return `@${atRule.name}` +
-        (atRule.parameters ? ` ${atRule.parameters}` : '') +
-        (atRule.rulelist ? `${this.visit(atRule.rulelist)}` : ';');
+    return '@'+ atRule.name +
+        (atRule.parameters ? atRule.parameters : '') +
+        (atRule.rulelist ? this.visit(atRule.rulelist) : ';');
   }
 
   /**
@@ -72,7 +72,7 @@ class Stringifier extends NodeVisitor<Node, string> {
    * @return The stringified CSS of the Comment.
    */
   [nodeType.comment](comment: Comment) {
-    return `${comment.value}`;
+    return comment.value;
   }
 
   /**
@@ -81,7 +81,7 @@ class Stringifier extends NodeVisitor<Node, string> {
    * @return The stringified CSS of the Ruleset.
    */
   [nodeType.ruleset](ruleset: Ruleset) {
-    return `${ruleset.selector}${this.visit(ruleset.rulelist)}`;
+    return ruleset.selector + this.visit(ruleset.rulelist);
   }
 
   /**
@@ -91,8 +91,8 @@ class Stringifier extends NodeVisitor<Node, string> {
    */
   [nodeType.declaration](declaration: Declaration) {
     return declaration.value != null ?
-        `${declaration.name}:${this.visit(declaration.value)};` :
-        `${declaration.name};`;
+        declaration.name + ':' + this.visit(declaration.value) :
+        declaration.name;
   }
 
   /**
@@ -101,12 +101,12 @@ class Stringifier extends NodeVisitor<Node, string> {
    * @return The stringified CSS of the Expression.
    */
   [nodeType.expression](expression: Expression) {
-    return `${expression.text}`;
+    return expression.text;
   }
 
   /**
    * Visit a discarded node.
-   * @param discarded A Discarded node.
+   * @param _discarded A Discarded node.
    * @return An empty string, since Discarded nodes are discarded.
    */
   [nodeType.discarded](_discarded: Discarded) {

@@ -44,6 +44,6 @@ export function* iterateOverAst(node: Node): Iterable<Node> {
       return;  // no child nodes
     default:
       const never: never = node;
-      console.error(`Got a node of unknown type: ${util.inspect(never)}`);
+      console.error('Got a node of unknown type: ' + util.inspect(never));
   }
 }

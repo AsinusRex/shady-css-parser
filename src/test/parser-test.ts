@@ -391,7 +391,8 @@ function*
         Iterable<NodeTypeMap[K]> {
   for (const n of iterateOverAst(node)) {
     if (n.type === type as any as nodeType) {
-      yield n;
+      // @ts-ignore
+        yield n;
     }
   }
 }

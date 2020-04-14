@@ -43,7 +43,7 @@ class Stringifier extends node_visitor_1.NodeVisitor {
      */
     [common_1.nodeType.atRule](atRule) {
         return '@' + atRule.name +
-            (atRule.parameters ? atRule.parameters : '') +
+            (atRule.parameters ? ' ' + atRule.parameters : '') +
             (atRule.rulelist ? this.visit(atRule.rulelist) : ';');
     }
     /**
@@ -81,7 +81,7 @@ class Stringifier extends node_visitor_1.NodeVisitor {
      */
     [common_1.nodeType.declaration](declaration) {
         return declaration.value != null ?
-            declaration.name + ':' + this.visit(declaration.value) :
+            declaration.name + ':' + this.visit(declaration.value) + ';' :
             declaration.name;
     }
     /**
